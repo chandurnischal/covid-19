@@ -1,8 +1,11 @@
 library(dplyr)
+library(ggplot2)
 
-data<- read.csv("data\\2.csv", header=TRUE)
+# f2c93f70 -> Maryland
 
-india<- data %>% 
-          filter(iso_alpha_3 == 'IND')
+data<- read.csv("data\\raw.csv", header=TRUE)
+data$date<- as.Date(data$date)
 
-write.csv(india, "data\\india_2.csv", row.names = FALSE)
+total <- data %>%
+  group_by(administrative_area_level_2, latitude, longitude) %>%
+  summarise(total_confirmed = sum(confirmed, na.rm = TRUE), .groups = "drop")
