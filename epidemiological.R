@@ -21,3 +21,5 @@ result<- merge(states, timeline, by = NULL)
 clean<- merge(result, data, by=c("abbrev_state", "date"), all.x=TRUE)
 
 filled<- fill_na_per_state(clean, columns=epidemiological)
+
+write.csv(filled, "data/filled.csv")
